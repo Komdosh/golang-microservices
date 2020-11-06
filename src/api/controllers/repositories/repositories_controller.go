@@ -17,7 +17,7 @@ func CreateRepo(c *gin.Context) {
 		return
 	}
 
-	result, err := services.RepositoryService.CreateRepo(request, c.GetHeader("Authorization"))
+	result, err := services.RepositoryService.CreateRepo("", request, c.GetHeader("Authorization"))
 	if err != nil {
 		c.JSON(err.Status(), err)
 		return

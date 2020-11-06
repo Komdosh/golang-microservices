@@ -13,7 +13,7 @@ type repoService struct {
 }
 
 type reposServicesInterface interface {
-	CreateRepo(input repositories.CreateRepoRequest, authorizationHeader string) (*repositories.CreateRepoResponse, errors.ApiError)
+	CreateRepo(clientId string, input repositories.CreateRepoRequest, authorizationHeader string) (*repositories.CreateRepoResponse, errors.ApiError)
 }
 
 var (
@@ -24,7 +24,7 @@ func init() {
 	RepositoryService = &repoService{}
 }
 
-func (s *repoService) CreateRepo(input repositories.CreateRepoRequest, authorizationHeader string) (*repositories.CreateRepoResponse, errors.ApiError) {
+func (s *repoService) CreateRepo(clientId string, input repositories.CreateRepoRequest, authorizationHeader string) (*repositories.CreateRepoResponse, errors.ApiError) {
 	input.Name = strings.TrimSpace(input.Name)
 	if input.Name == "" {
 		return nil, errors.NewBadRequestError("invalid repository name")
