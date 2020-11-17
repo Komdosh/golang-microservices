@@ -1,2 +1,5 @@
 # golang-microservices
-Quick Start Go
+
+Golang tutorial for a better understanding of microservices concepts.
+
+Nothing interesting here, this is just my own study.
