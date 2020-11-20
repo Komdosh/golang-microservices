@@ -1,6 +1,9 @@
 package app
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/Komdosh/golang-microservices/src/api/log"
+	"github.com/gin-gonic/gin"
+)
 
 var (
 	router *gin.Engine
@@ -11,7 +14,9 @@ func init() {
 }
 
 func StartApp() {
+	log.Info("about to map the urls", "step:1", "status:pending")
 	mapUrls()
+	log.Info("urls successfully mapped", "step:2", "status:success")
 
 	if err := router.Run(":8080"); err != nil {
 		panic(err)
