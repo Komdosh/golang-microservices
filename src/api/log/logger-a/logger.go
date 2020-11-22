@@ -1,4 +1,4 @@
-package log
+package logger_a
 
 import (
 	"fmt"
@@ -18,14 +18,14 @@ func init() {
 		level = logrus.DebugLevel
 	}
 	Log = &logrus.Logger{
-		Level: level,
-		Out:   os.Stdout,
+		Level:     level,
+		Out:       os.Stdout,
+		Formatter: &logrus.JSONFormatter{},
 	}
-	if config.IsProduction() {
-		Log.Formatter = &logrus.JSONFormatter{}
-	} else {
-		Log.Formatter = &logrus.TextFormatter{}
-	}
+}
+
+func Field(key string, value interface{}) string {
+	return key + ":" + value.(string)
 }
 
 func Info(msg string, tags ...string) {

@@ -1,7 +1,7 @@
 package app
 
 import (
-	"github.com/Komdosh/golang-microservices/src/api/log"
+	"github.com/Komdosh/golang-microservices/src/api/log/logger-a"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,9 +14,9 @@ func init() {
 }
 
 func StartApp() {
-	log.Info("about to map the urls", "step:1", "status:pending")
+	logger_a.Info("about to map the urls", logger_a.Field("step", "1"), logger_a.Field("status", "pending"))
 	mapUrls()
-	log.Info("urls successfully mapped", "step:2", "status:success")
+	logger_a.Info("urls successfully mapped", logger_a.Field("step", "2"), logger_a.Field("status", "pending"))
 
 	if err := router.Run(":8080"); err != nil {
 		panic(err)
