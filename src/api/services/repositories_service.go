@@ -4,6 +4,7 @@ import (
 	"github.com/Komdosh/golang-microservices/src/api/config"
 	"github.com/Komdosh/golang-microservices/src/api/domain/github"
 	"github.com/Komdosh/golang-microservices/src/api/domain/repositories"
+	"github.com/Komdosh/golang-microservices/src/api/log/logger-b"
 	"github.com/Komdosh/golang-microservices/src/api/providers/github_providers"
 	"github.com/Komdosh/golang-microservices/src/api/utils/errors"
 	"net/http"
@@ -47,11 +48,14 @@ func (s *repoService) CreateRepo(clientId string, input repositories.CreateRepoR
 		Private:     false,
 	}
 
+	logger_b.Info("about to send request to external api", logger_b.Field("client_id:", clientId), logger_b.Field("status", "pending"))
 	response, err := github_providers.CreateRepo(token, request)
 
 	if err != nil {
+		logger_b.Error("response obtained from external api", err, logger_b.Field("client_id:", clientId), logger_b.Field("status", "error"))
 		return nil, errors.NewApiError(err.StatusCode, err.Message)
 	}
+	logger_b.Info("response obtained from external api", logger_b.Field("client_id:", clientId), logger_b.Field("status", "success"))
 
 	result := repositories.CreateRepoResponse{
 		Id:    response.Id,
