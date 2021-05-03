@@ -1,6 +1,6 @@
 package repositories
 
-/*import (
+import (
 	"encoding/json"
 	"github.com/Komdosh/golang-microservices/src/api/domain/repositories"
 	"github.com/Komdosh/golang-microservices/src/api/services"
@@ -15,9 +15,14 @@ package repositories
 
 var (
 	funcCreateRepo  func(clientId string, request repositories.CreateRepoRequest, token string) (*repositories.CreateRepoResponse, errors.ApiError)
+	funcCreateRepos func(clientId string, input []repositories.CreateRepoRequest, authorizationHeader string) (repositories.CreateReposResponse, errors.ApiError)
 )
 
 type repoServiceMock struct{}
+
+func (s *repoServiceMock) CreateRepos(clientId string, input []repositories.CreateRepoRequest, authorizationHeader string) (repositories.CreateReposResponse, errors.ApiError) {
+	return funcCreateRepos(clientId, input, authorizationHeader)
+}
 
 func (s *repoServiceMock) CreateRepo(clientId string, request repositories.CreateRepoRequest, token string) (*repositories.CreateRepoResponse, errors.ApiError) {
 	return funcCreateRepo(clientId, request, token)
@@ -70,4 +75,4 @@ func TestCreateRepoErrorFromGithubMockingTheEntireService(t *testing.T) {
 	assert.NotNil(t, apiErr)
 	assert.EqualValues(t, http.StatusBadRequest, apiErr.Status())
 	assert.EqualValues(t, "invalid repository name", apiErr.Message())
-}*/
+}
